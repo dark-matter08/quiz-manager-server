@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Question } from './question.entity';
 
-@Entity('option')
+@Entity('options')
 export class Option extends BaseEntity {
   @PrimaryGeneratedColumn({
     comment: 'This is the question unique identifier',
