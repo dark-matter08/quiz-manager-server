@@ -17,8 +17,8 @@ export class QuizController {
   constructor(private readonly quizService: QuizService) {}
 
   @Get('/')
-  getAllQuiz() {
-    return this.quizService.getAllQuiz();
+  async getAllQuiz(): Promise<Quiz[]> {
+    return await this.quizService.getAllQuiz();
   }
 
   @Get('/:id')
@@ -28,7 +28,7 @@ export class QuizController {
 
   @Post('/')
   @UsePipes(ValidationPipe)
-  async createQuiz(@Body() quizData: CreateQuizDTO) {
+  async createQuiz(@Body() quizData: CreateQuizDTO): Promise<Quiz> {
     return await this.quizService.createQuiz(quizData);
   }
 }
