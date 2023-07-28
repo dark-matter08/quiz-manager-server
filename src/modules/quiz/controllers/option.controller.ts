@@ -5,7 +5,11 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateOptionDTO } from '../dto/create-option.dto';
 import { Option } from '../entities/option.entity';
 import { OptionService } from '../services/option.service';
@@ -18,6 +22,13 @@ export class OptionController {
     private readonly optionService: OptionService,
   ) {}
 
+  @ApiCreatedResponse({
+    description: 'Created option object response',
+    type: () => Option,
+  })
+  @ApiBadRequestResponse({
+    description: 'Option could not be created',
+  })
   @Post('/')
   @UsePipes(ValidationPipe)
   async createOption(@Body() option: CreateOptionDTO): Promise<Option> {

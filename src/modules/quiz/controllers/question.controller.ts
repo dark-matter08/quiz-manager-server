@@ -5,7 +5,11 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateQuestionDTO } from '../dto/create-question.dto';
 import { Question } from '../entities/question.entity';
 import { QuestionService } from '../services/question.service';
@@ -19,6 +23,13 @@ export class QuestionController {
     private readonly quizService: QuizService,
   ) {}
 
+  @ApiCreatedResponse({
+    description: 'Created question object response',
+    type: Question,
+  })
+  @ApiBadRequestResponse({
+    description: 'User question cannot be sent, try again',
+  })
   @Post('/')
   @UsePipes(ValidationPipe)
   async createQuestion(@Body() question: CreateQuestionDTO): Promise<Question> {
