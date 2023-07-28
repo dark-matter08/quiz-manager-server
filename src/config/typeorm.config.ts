@@ -1,6 +1,6 @@
 import {
   TypeOrmModuleAsyncOptions,
-  TypeOrmModuleOptions,
+  // TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
 
 export const typeOrmConfigAsync: TypeOrmModuleAsyncOptions = {
