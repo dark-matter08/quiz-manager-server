@@ -50,7 +50,6 @@ export class Quiz extends BaseEntity {
 
   @ApiProperty({
     description: "The relationship of a quiz to it's questions",
-    example: [() => Question],
   })
   @OneToMany(() => Question, (question) => question.quiz)
   questions: Question[];

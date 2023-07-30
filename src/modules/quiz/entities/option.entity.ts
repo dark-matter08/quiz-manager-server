@@ -40,7 +40,6 @@ export class Option extends BaseEntity {
 
   @ApiProperty({
     description: "The relationship of a option to it's question",
-    example: () => Question,
   })
   @ManyToOne(() => Question, (question) => question.options)
   question: () => Question;

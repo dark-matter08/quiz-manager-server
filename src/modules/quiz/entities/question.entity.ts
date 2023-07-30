@@ -33,14 +33,12 @@ export class Question extends BaseEntity {
 
   @ApiProperty({
     description: "The relation ship of the quiz to it's Question",
-    example: () => Quiz,
   })
   @ManyToOne(() => Quiz, (quiz) => quiz.questions)
   quiz: () => Quiz;
 
   @ApiProperty({
     description: "The relation ship of the quiz to it's Option",
-    example: () => Option,
   })
   @OneToMany(() => Option, (option) => option.question)
   options: Option[];

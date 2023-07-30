@@ -3,7 +3,8 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { ApiTags } from '@nestjs/swagger';
-
+import * as uaParser from 'ua-parser-js';
+import * as geoip from 'geoip-lite';
 @ApiTags('Authentication Endpoints')
 @Controller('auth')
 export class AuthController {
@@ -18,6 +19,16 @@ export class AuthController {
   @Get('user')
   @UseGuards(JwtAuthGuard)
   async user(@Request() req): Promise<any> {
+    const ua = uaParser(req.headers['user-agent']);
+    const ipAddress = req.ip;
+    const geo = geoip.lookup(ipAddress);
+
+    return {
+      ua,
+      ip_address: ipAddress,
+      geo,
+    };
+
     return req.user;
   }
 }

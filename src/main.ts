@@ -9,7 +9,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Quiz Manager API')
     .setDescription(
-      'This is the API documentation for a Quiz Manager App. BUilt in the process of me learning NestJS',
+      'This is the API documentation for a Quiz Manager App. Built in the process of me learning NestJS',
     )
     .setVersion('1.0')
     .build();
