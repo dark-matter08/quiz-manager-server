@@ -18,11 +18,16 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "typeorm-ts-node-esm",
     "typeorm:cli": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli -f src/config/typeorm.config-migrations.ts",
-    "migration:generate": "npm run typeorm:cli -- migration:generate -d src/database/migrations -n",
-    "migration:create": "npm run typeorm:cli -- migration:create -d src/database/migrations -n",
+    "migration:generate": "npm run typeorm:cli -- migration:generate -- src/migrations -n",
+    "migration:create": "npm run typeorm:cli -- migration:create -- src/migrations -n",
     "migration:run": "npm run typeorm:cli -- migration:run",
-    "migration:revert": "npm run typeorm:cli -- migration:revert"
+    "migration:revert": "npm run typeorm:cli -- migration:revert",
+    "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config -n src/config/typeorm.config-migrations.ts",
+    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed -n src/config/typeorm.config-migrations.ts",
+    "db:refresh": "npm run typeorm:cli schema:drop && npm run migration:run && npm run seed:run",
+    "start:migration": "npx typeorm-ts-node-esm migration:generate ./src/database/migrations/BaseMigrations -d ./src/config/typeorm.config-migrations.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -47,6 +52,8 @@
     "rxjs": "^7.8.1",
     "swagger-ui-express": "^5.0.0",
     "typeorm": "^0.3.10",
+    "typeorm-naming-strategies": "^4.1.0",
+    "typeorm-seeding": "^1.6.1",
     "ua-parser-js": "^1.0.35"
   },
   "devDependencies": {
